@@ -1,4 +1,4 @@
-package com.fiftyfour.com.fiftyfour.persistence
+package com.fiftyfour.persistence
 
 import org.joda.time.DateTime;
 

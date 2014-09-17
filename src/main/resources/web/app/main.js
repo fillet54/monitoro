@@ -1,30 +1,45 @@
 var context = cubism.context()
-              .step(1000) // Distance between data points in milliseconds
-              .size(800); // Number of data points
+              .step(5000) // Distance between data points in milliseconds
+              .size(1280); // Number of data points
               //.stop();
 
 function stock(name) {
     return context.metric(function(start, stop, step, callback) {
-
-        d3.json("/metrics/topic/" + name + "/?start=" + start.toISOString()
-              + "&stop=" + stop.toISOString()
-              + "&step=" + step, function(data) {
+    	
+    	var points = (stop.getTime() - start.getTime()) / step;
+        d3.json("/blueflood/v2.0/master/views/" + name + "?from=" + start.getTime()
+              + "&to=" + stop.getTime()
+              + "&points=" + points, function(data) {
                 if(!data) return callback(new Error("unable to load data"));
-                callback(null, data.map(function(d) { return d.value; }));
+                callback(null, RollUpData(data, start.getTime(), step));
         });
-
-        /*
-        var values = [];
-        start = +start;
-        stop = +stop;
-
-        while(start < stop) {
-            start += step;
-            values.push(value = Math.floor(Math.random()*10)-5);
-        }
-		callback(null, values);
-		*/
 	}, name);
+}
+
+function RollUpData(data, startInMillis, stepInMillis) {
+	var rolledUpData = [];
+	var slotEndInMillis = startInMillis + stepInMillis;
+	var total = 0;
+	var count = 0;
+	
+	data.values.forEach(function (d) {
+		while(d.timestamp > slotEndInMillis) {
+			var average = 0 // Push zero when no data points are in slot.
+			if (count > 0) {
+				average = total / count;
+			}
+			total = 0;
+			count = 0;
+			
+			rolledUpData.push(average);
+			slotEndInMillis += stepInMillis;
+		}
+		
+		total += d.average * d.numPoints;
+		count += d.numPoints;
+	});
+	
+	return rolledUpData;
 }
 
 function draw_graph(stocks_list) {
@@ -53,7 +68,8 @@ function draw_graph(stocks_list) {
       .insert("div", ".bottom")        // Insert the graph in a div. Turn the div into
       .attr("class", "horizon")        // a horizon graph and format to 2 decimals places.
       .call(context.horizon()
-      .format(d3.format("+,.2p")));
+    		       .scale(d3.scale.linear(1.0))
+    		       .format(d3.format("+,.2p")));
 
     context.on("focus", function(i) {
         d3.selectAll(".value").style("right",   // Make the rule coincide with the mouse

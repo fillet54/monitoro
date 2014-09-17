@@ -5,7 +5,7 @@
     <title>Super MQ Monitor</title>
 
     <script src="/lib/d3/d3.min.js" charset="utf-8"></script>
-    <script src="/lib/cubism/cubism.v1.min.js"></script>
+    <script src="/lib/cubism/cubism.v1.js"></script>
     <script src="/app/main.js"></script>
 
 </head>
@@ -18,7 +18,7 @@
             d3.select("body").append("div") // Add a vertical rule
               .attr("class", "rule")        // to the graph
               .call(context.rule());
-            draw_graph(["Sample"]);
+            draw_graph(["com.fiftyfour.cpu.load"]);
         </script>
     </body>
 </html>

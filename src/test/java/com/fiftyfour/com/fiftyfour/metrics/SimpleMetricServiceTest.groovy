@@ -1,8 +1,11 @@
 package com.fiftyfour.com.fiftyfour.metrics
 
-import com.fiftyfour.com.fiftyfour.persistence.TopicMetric
-import com.fiftyfour.com.fiftyfour.persistence.TopicMetricStore
+import com.fiftyfour.persistence.TopicMetric
+import com.fiftyfour.persistence.TopicMetricStore
+import com.fiftyfour.metrics.SimpleMetricsService;
+
 import org.joda.time.DateTime
+
 import spock.lang.*
 
 class SimpleMetricServiceTest extends Specification {

@@ -1,6 +1,6 @@
-package com.fiftyfour.com.fiftyfour.metrics
+package com.fiftyfour.metrics
 
-import com.fiftyfour.com.fiftyfour.persistence.TopicMetric
+import com.fiftyfour.persistence.TopicMetric
 import org.joda.time.DateTime
 
 interface MetricsService {

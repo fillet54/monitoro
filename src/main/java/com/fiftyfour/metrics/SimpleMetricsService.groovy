@@ -1,7 +1,7 @@
-package com.fiftyfour.com.fiftyfour.metrics
+package com.fiftyfour.metrics
 
-import com.fiftyfour.com.fiftyfour.persistence.TopicMetric
-import com.fiftyfour.com.fiftyfour.persistence.TopicMetricStore
+import com.fiftyfour.persistence.TopicMetric
+import com.fiftyfour.persistence.TopicMetricStore
 import org.joda.time.DateTime
 
 class SimpleMetricsService implements  MetricsService {

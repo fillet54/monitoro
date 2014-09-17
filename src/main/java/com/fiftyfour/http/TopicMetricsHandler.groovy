@@ -1,6 +1,6 @@
-package com.fiftyfour.com.fiftyfour.http
+package com.fiftyfour.http
 
-import com.fiftyfour.com.fiftyfour.metrics.MetricsService
+import com.fiftyfour.metrics.MetricsService
 import com.google.gson.GsonBuilder
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
