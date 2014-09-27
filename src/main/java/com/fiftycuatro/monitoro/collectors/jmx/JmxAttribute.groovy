@@ -1,4 +1,4 @@
-package com.fiftyfour.collectors.jmx
+package com.fiftycuatro.monitoro.collectors.jmx
 
 import groovy.transform.EqualsAndHashCode;
 

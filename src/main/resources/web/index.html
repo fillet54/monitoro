@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Super MQ Monitor</title>
-
-    <script src="/lib/d3/d3.min.js" charset="utf-8"></script>
-    <script src="/lib/cubism/cubism.v1.js"></script>
-    <script src="/app/main.js"></script>
-
-</head>
+	<head>
+	    <meta charset="utf-8">
+	    <title>Super MQ Monitor</title>
+		<link rel="stylesheet" type="text/css" href="/css/custom.css">
+	</head>
 
     <body>
-        <div id="demo"></div>
+    	<div id="body">
+        	<div id="demo"></div>
+        </div>
 
+	    <script src="/lib/d3/d3.min.js" charset="utf-8"></script>
+	    <script src="/lib/cubism/cubism.v1.js"></script>
+	    <script src="/app/main.js"></script>
         <script type="text/javascript">
-
-            d3.select("body").append("div") // Add a vertical rule
-              .attr("class", "rule")        // to the graph
-              .call(context.rule());
-            draw_graph(["com.fiftyfour.cpu.load"]);
+            draw_graph2(["com.fiftyfour.cpu.load", "com.fiftyfour.cpu.load"]);
+            
+            // On mousemove, reposition the chart values to match the rule.
+            context.on("focus", function(i) {
+              
+              // TODO: Add/Remove CSS class so styling is done in CSS
+              var isPastFocusLimit = (i < context.size() / 4) && (i > 0);
+              d3.selectAll(".title").style("font-size", isPastFocusLimit ? "10px" : "15px");
+              d3.selectAll(".title").style("opacity", isPastFocusLimit ? ".5" : "1");
+              
+              d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");
+            });
         </script>
     </body>
-</html>
+</html> 

@@ -1,7 +1,4 @@
-package com.fiftyfour.collectors.jmx;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
+package com.fiftycuatro.monitoro.collectors.jmx
 
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;

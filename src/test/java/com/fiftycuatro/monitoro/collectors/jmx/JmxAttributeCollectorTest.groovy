@@ -1,7 +1,7 @@
-package com.fiftyfour.collectors.jmx
+package com.fiftycuatro.monitoro.collectors.jmx
 
 import spock.lang.Specification
-import com.fiftyfour.persistence.TimeSeriesStore
+import com.fiftycuatro.monitoro.persistence.TimeSeriesStore
 
 class JmxAttributeCollectorTest extends Specification {
 

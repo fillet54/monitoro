@@ -1,1 +1,0 @@
-"%JAVA_HOME%\bin\java" -jar target\mq-monitor-1.0-SNAPSHOT-jar-with-dependencies.jar

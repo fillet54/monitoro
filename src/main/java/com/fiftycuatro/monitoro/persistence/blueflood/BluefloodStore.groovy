@@ -1,6 +1,6 @@
-package com.fiftyfour.persistence.blueflood
+package com.fiftycuatro.monitoro.persistence.blueflood
 
-import com.fiftyfour.persistence.TimeSeriesStore;
+import com.fiftycuatro.monitoro.persistence.TimeSeriesStore;
 import com.google.gson.GsonBuilder
 import org.apache.http.client.methods.HttpPost
 import org.apache.http.entity.StringEntity

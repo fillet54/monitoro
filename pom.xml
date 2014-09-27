@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.fiftyfour</groupId>
-    <artifactId>mq-monitor</artifactId>
+    <artifactId>monitoro</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>mq-monitor</name>
+    <name>monitoro</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -89,7 +89,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.fiftyfour.App</mainClass>
+                            <mainClass>com.fiftycuatro.monitoro.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

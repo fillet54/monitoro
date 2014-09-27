@@ -1,11 +1,11 @@
-package com.fiftyfour.collectors.jmx
+package com.fiftycuatro.monitoro.collectors.jmx
 
-import com.fiftyfour.collectors.Collector
-import com.fiftyfour.persistence.TimeSeriesStore
+import com.fiftycuatro.monitoro.collectors.Collector
+import com.fiftycuatro.monitoro.persistence.TimeSeriesStore
 
 class JmxAttributeCollector implements Collector {
 
-	private String COLLECTION_ID = "com.fiftyfour.cpu.load";
+	private String COLLECTION_ID = "com.fiftycuatro.cpu.load";
 	private String JMX_OBJECT_NAME = "java.lang:type=OperatingSystem"
 	private String JMX_ATTR_NAME = "SystemCpuLoad"
 	

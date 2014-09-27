@@ -1,8 +1,6 @@
-package com.fiftyfour.http
+package com.fiftycuatro.monitoro.http
 
-import java.io.IOException;
 import java.util.concurrent.ExecutorService
-
 import org.webbitserver.HttpControl;
 import org.webbitserver.HttpHandler
 import org.webbitserver.HttpRequest;
@@ -68,9 +66,6 @@ class SimpleHttpProxyHandler implements HttpHandler {
 			response
 			.content(content)
 			.end();
-		}
-		
+		}	
 	}
-			
-	
 }
