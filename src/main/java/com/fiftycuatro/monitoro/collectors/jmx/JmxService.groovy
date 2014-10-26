@@ -6,7 +6,7 @@ import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 
-public class JmxService implements JmxAttributeService{
+public class JmxService implements JmxAttributeService {
 	
 	private MBeanServerConnection mbsc;
 	

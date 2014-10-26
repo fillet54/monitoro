@@ -24,7 +24,7 @@ class App {
 
         def webserver = WebServers.createWebServer(8080)
                 .add(new LoggingHandler(new SimpleLogSink()))
-				.add("/blueflood/.*", new SimpleHttpProxyHandler("http://localhost:20000", "/blueflood")) // need to pass in filter.. better way soon
+				.add(new SimpleHttpProxyHandler("/blueflood/", "http://localhost:20000"))
                 .add(new EmbeddedResourceHandler("web"))
                 .start()
                 .get();

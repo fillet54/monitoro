@@ -15,16 +15,31 @@
 	    <script src="/lib/cubism/cubism.v1.js"></script>
 	    <script src="/app/main.js"></script>
         <script type="text/javascript">
-            draw_graph2(["com.fiftyfour.cpu.load", "com.fiftyfour.cpu.load"]);
-            
+            draw_graph2(["com.fiftycuatro.cpu.load", "com.fiftyfour.cpu.load"]);
+
+            var wasPastFocusLimit = false; // helps to only transition one time
             // On mousemove, reposition the chart values to match the rule.
             context.on("focus", function(i) {
               
               // TODO: Add/Remove CSS class so styling is done in CSS
               var isPastFocusLimit = (i < context.size() / 4) && (i > 0);
-              d3.selectAll(".title").style("font-size", isPastFocusLimit ? "10px" : "15px");
-              d3.selectAll(".title").style("opacity", isPastFocusLimit ? ".5" : "1");
-              
+
+              if (isPastFocusLimit && !wasPastFocusLimit) {
+                  d3.selectAll(".title")
+                  .transition()
+                  .duration(500)
+                  .style("font-size", "10px")
+                  .style("opacity", ".5")
+              }
+              else if (wasPastFocusLimit && !isPastFocusLimit) {
+                  d3.selectAll(".title")
+                  .transition()
+                  .duration(500)
+                  .style("font-size", "15px")
+                  .style("opacity", "1")
+              }
+              wasPastFocusLimit = isPastFocusLimit;
+
               d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");
             });
         </script>
