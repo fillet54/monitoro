@@ -1,9 +1,10 @@
 package com.fiftycuatro.monitoro.collectors.service;
 
 import com.fiftycuatro.monitoro.collectors.Collector;
-import com.fiftycuatro.monitoro.collectors.CollectorGroup;
+
+import java.util.List;
 
 public interface CollectorService {
-    public void addToGroup(String groupId, Collector collector);
-    public CollectorGroup getGroup(String groupId);
+    List<Collector> getCollectors();
+    void addCollector(Collector collector);
 }

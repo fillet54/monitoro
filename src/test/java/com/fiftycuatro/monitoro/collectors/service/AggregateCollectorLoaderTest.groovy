@@ -14,7 +14,7 @@ class AggregateCollectorLoaderTest extends Specification {
         loader.loadConfigurationTo("", service)
 
         then:
-        0 * service.addToGroup(_, _)
+        0 * service.addCollector(_)
     }
 
     def collector(String id, String type) {
@@ -32,7 +32,7 @@ class AggregateCollectorLoaderTest extends Specification {
         ]
     }
 
-    def "loading with no other loaders results in no added groups"() {
+    def "loading with no loaders is allowed"() {
         setup:
         def loader = new AggregateCollectorLoader()
         def service = Mock(CollectorService)
@@ -45,7 +45,7 @@ class AggregateCollectorLoaderTest extends Specification {
         assert(true)
     }
 
-    def "a single loader is called being passed a configuration and a collector service"() {
+    def "a single loader is called being passed the configuration string and the collector service"() {
         setup:
         def typeLoader = Mock(CollectorLoader)
         def loader = new AggregateCollectorLoader([typeLoader])

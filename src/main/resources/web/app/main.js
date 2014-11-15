@@ -3,6 +3,8 @@ var context = cubism.context()
               .size(960); // Number of data points
               //.stop();
 
+var metricNames = [];
+
 function collection(name) {
     return context.metric(function(start, stop, step, callback) {
     	
@@ -47,58 +49,51 @@ function rollupCollectionData(data, startInMillis, stepInMillis) {
 	return rolledUpData;
 }
 
-function draw_graph2(collection_list) {
+function draw_graph(collection_list) {
 	d3.select("#demo").call(function(div) {
+
+          metricNames = _.union(metricNames, collection_list);
+          var metrics = metricNames.map(collection);
 
 		  div.append("div")
 		      .attr("class", "axis")
 		      .call(context.axis().orient("top"));
 
-		  div.selectAll(".horizon")
-		      .data(collection_list.map(collection))
-		    .enter().append("div")
-		      .attr("class", "horizon")
-		      .call(context.horizon()
-		    		       .extent([0, 1])
-		    		       .format(d3.format(".2p")));
+		  div.append("div")
+		      .attr("class", "horizonContainer")
+	  	      .selectAll(".horizon")
+		       .data(metrics)
+		       .enter().append("div")
+		        .attr("class", "horizon")
+		        .call(context.horizon()
+		     		         .extent([0, 1])
+		    		         .format(d3.format(".2p")));
 
 		  div.append("div")
 		      .attr("class", "rule")
 		      .call(context.rule());
-		});
+	});
 }
 
-function draw_graph(collection_list) {
-	d3.select("body").append("div")    // Add a vertical rule to the graph
-          .attr("class", "rule")
-          .call(context.rule());
+function addToGraph(entries) {
+    metricNames = _.union(metricNames, entries);
+    var metrics = metricNames.map(collection);
 
-    d3.select("#demo")                 // Select the div on which we want to act
-      .selectAll(".axis")              // This is a standard D3 mechanism to bind data
-      .data(["top"])                   // to a graph. In this case we're binding the axes
-      .enter()                         // "top" and "bottom". Create two divs and give them
-      .append("div")                   // the classes top axis and bottom axis respectively.
-      .attr("class", function(d) {
-      	return d + " axis";
-      })
-      .each(function(d) {              // For each of these axes, draw the axes with 4
-      	d3.select(this)                // intervals and place them in their proper places.
-      	  .call(context.axis()         // 4 ticks gives us an hourly axis.
-      	  .ticks(4).orient(d));
-      });
-
-    d3.select("#demo")
-      .selectAll(".horizon")
-      .data(collection_list.map(collection))
-      .enter()
-      .insert("div", ".bottom")        // Insert the graph in a div. Turn the div into
-      .attr("class", "horizon")        // a horizon graph and format to 2 decimals places.
-      .call(context.horizon()
-    		       .scale(d3.scale.linear(1.0))
-    		       .format(d3.format("+,.2p")));
-
-    context.on("focus", function(i) {
-        d3.selectAll(".value").style("right",   // Make the rule coincide with the mouse
-        	i == null ? null : context.size() - i + "px");
+	d3.select("#demo").call(function(div) {
+	      div.select(".horizonContainer")
+		  .selectAll(".horizon")
+		  .data(metrics)
+		   .enter().append("div")
+		    .attr("class", "horizon")
+		    .call(uniquelyMark)
+		    .call(context.horizon()
+		                 .extent([0, 1])
+		    	         .format(d3.format(".2p")));
     });
+}
+
+function uniquelyMark(selection) {
+    selection.each(function(d, i) {
+	    d3.select(this).attr("data-metricid", d.toString());
+	});
 }

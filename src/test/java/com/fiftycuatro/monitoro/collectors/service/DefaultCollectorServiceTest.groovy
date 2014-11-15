@@ -24,61 +24,43 @@ class DefaultCollectorServiceTest extends Specification {
         collector2 = CreateCollector("COLLECTOR_ID2")
     }
 
-    def "trying to get a non-existent set returns an empty set"() {
-        expect:
-        0 == service.getGroup("UNKNOWN_ID").size()
+    def "trying to get collectors when no collectors have been added returns an empty List"() {
+       expect:
+       0 == service.getCollectors().size();
     }
 
     def "trying to add a null collector causes an Illegal Argument exception"() {
         when:
-        service.addToGroup(groupId1, null)
+        service.addCollector(null)
 
         then:
         thrown IllegalArgumentException
     }
-
-    def "trying to add with a null group ID causes an Illegal Argument exception"() {
-        when:
-        service.addToGroup(null, collector1)
-
-        then:
-        thrown IllegalArgumentException
-    }
-
 
     def "can add a single collector"() {
         when:
-        service.addToGroup(groupId1, collector1)
+        service.addCollector(collector1)
 
         then:
-        1 == service.getGroup(groupId1).size()
+        1 == service.getCollectors().size()
     }
 
     def "cannot add a collector that has already been added"() {
         when:
-        service.addToGroup(groupId1, collector1)
-        service.addToGroup(groupId1, collector1)
+        service.addCollector(collector1)
+        service.addCollector(collector1)
 
         then:
-        1 == service.getGroup(groupId1).size()
+        1 == service.getCollectors().size()
     }
 
     def "can add multiple collectors"() {
         when:
-        service.addToGroup(groupId1, collector1)
-        service.addToGroup(groupId1, collector2)
+        service.addCollector(collector1)
+        service.addCollector(collector2)
 
         then:
-        service.getGroup(groupId1).containsAll([collector1, collector2])
+        service.getCollectors().containsAll([collector1, collector2])
 
-    }
-
-    def "can add single collector to multiple collectors sets"() {
-        when:
-        service.addToGroup(groupId1, collector1)
-        service.addToGroup(groupId2, collector1)
-
-        then:
-        service.getGroup(groupId1) == service.getGroup(groupId2)
     }
 }
